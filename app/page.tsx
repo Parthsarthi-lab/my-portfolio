@@ -1,65 +1,190 @@
 import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+import { getRecentBlogs } from "@/lib/blogs";
+import { projects } from "@/lib/projects";
+import { siteConfig } from "@/lib/site";
+import { videos } from "@/lib/videos";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Personal website of Parthsarthi Joshi with writing, videos, and projects around AI, products, and robotics.",
+};
 
 export default function Home() {
+  const recentPosts = getRecentBlogs(2);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="py-8 md:py-12">
+      <section className="grid gap-10 md:grid-cols-[280px_1fr] md:items-center">
+        <div className="flex justify-center md:justify-end">
+          <Image
+            src="/parth_profile.jpg"
+            alt="Portrait of Parthsarthi Joshi"
+            width={300}
+            height={300}
+            className="profile-image h-[260px] w-[260px] md:h-[300px] md:w-[300px]"
+            priority
+          />
+        </div>
+
+        <div className="max-w-3xl">
+          <h1 className="text-4xl font-medium tracking-tight text-[color:var(--foreground)] md:text-6xl">
+            {siteConfig.name}
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-3 text-xl text-[color:var(--foreground)] md:text-2xl">
+            {siteConfig.role}
           </p>
+          <p className="mt-5 max-w-2xl text-xl leading-9 text-[color:var(--muted)]">
+            {siteConfig.heroQuote}
+          </p>
+          <p className="mt-5 max-w-3xl text-base leading-8 text-[color:var(--muted)]">
+            {siteConfig.summary}
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            {siteConfig.socialLinks.map((link) => (
+              <Link key={link.label} href={link.href} className="button-secondary">
+                {link.label}
+              </Link>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="page-divider mt-12 pt-10">
+        <div className="space-y-12">
+          <div className="timeline-row">
+            <div className="timeline-year">2026</div>
+            <div className="timeline-rail">
+              <div className="timeline-dot" />
+            </div>
+            <div className="inline-links">
+              <p className="text-2xl text-[color:var(--foreground)]">Videos</p>
+              <p className="prose-copy mt-3 max-w-4xl">
+                I share AI-related work through classroom sessions, public seminars, and
+                local awareness initiatives. The <Link href="/videos">Videos page</Link> is
+                where this media will live as the archive grows.
+              </p>
+            </div>
+          </div>
+
+          <div className="timeline-row">
+            <div className="timeline-year">2026</div>
+            <div className="timeline-rail">
+              <div className="timeline-dot" />
+            </div>
+            <div className="inline-links">
+              <p className="text-2xl text-[color:var(--foreground)]">Projects</p>
+              <p className="prose-copy mt-3 max-w-4xl">
+                I am building `vijAI Robotics` as a long-term vehicle for work in AI,
+                products, and robotics. The <Link href="/projects">Projects page</Link> holds
+                the visible pieces of that journey right now.
+              </p>
+            </div>
+          </div>
+
+          <div className="timeline-row">
+            <div className="timeline-year">Soon</div>
+            <div className="timeline-rail">
+              <div className="timeline-dot" />
+            </div>
+            <div className="inline-links">
+              <p className="text-2xl text-[color:var(--foreground)]">Blogs</p>
+              <p className="prose-copy mt-3 max-w-4xl">
+                I will begin writing on AI, products, robotics, ambition, and the ideas
+                shaping my long-term work. Those essays will appear on the{" "}
+                <Link href="/blog">Blogs page</Link>.
+              </p>
+            </div>
+          </div>
         </div>
-      </main>
+      </section>
+
+      <section className="page-divider mt-12 grid gap-6 pt-10 md:grid-cols-3">
+        <article className="surface-card rounded-2xl p-6">
+          <p className="eyebrow">Current Direction</p>
+          <p className="mt-4 text-base leading-8 text-[color:var(--muted)]">
+            {siteConfig.headline}
+          </p>
+        </article>
+
+        <article className="surface-card rounded-2xl p-6">
+          <p className="eyebrow">Selected Reading</p>
+          <ul className="mt-4 space-y-2 text-sm leading-7 text-[color:var(--muted)]">
+            {siteConfig.currentReading.slice(0, 3).map((book) => (
+              <li key={book}>{book}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="surface-card rounded-2xl p-6">
+          <p className="eyebrow">Quick Links</p>
+          <div className="mt-4 space-y-3 text-sm">
+            <Link href="/videos" className="block text-[color:var(--link)] underline underline-offset-4">
+              View videos
+            </Link>
+            <Link href="/projects" className="block text-[color:var(--link)] underline underline-offset-4">
+              View projects
+            </Link>
+            <Link href="/blog" className="block text-[color:var(--link)] underline underline-offset-4">
+              View blogs
+            </Link>
+          </div>
+        </article>
+      </section>
+
+      <section className="page-divider mt-12 grid gap-6 pt-10 md:grid-cols-2">
+        <article className="surface-card rounded-2xl p-6">
+          <p className="eyebrow">Recent Video Themes</p>
+          <div className="mt-4 space-y-4">
+            {videos.slice(0, 2).map((video) => (
+              <div key={video.title}>
+                <p className="text-lg text-[color:var(--foreground)]">{video.title}</p>
+                <p className="mt-1 text-sm leading-7 text-[color:var(--muted)]">
+                  {video.summary}
+                </p>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="surface-card rounded-2xl p-6">
+          <p className="eyebrow">Recent Project Threads</p>
+          <div className="mt-4 space-y-4">
+            {projects.slice(0, 2).map((project) => (
+              <div key={project.slug}>
+                <p className="text-lg text-[color:var(--foreground)]">{project.title}</p>
+                <p className="mt-1 text-sm leading-7 text-[color:var(--muted)]">
+                  {project.summary}
+                </p>
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+
+      {recentPosts.length ? (
+        <section className="page-divider mt-12 pt-10">
+          <p className="eyebrow">Latest Blogs</p>
+          <div className="mt-6 grid gap-4">
+            {recentPosts.map((post) => (
+              <article key={post.slug} className="surface-card rounded-2xl p-5">
+                <p className="text-xs uppercase tracking-[0.16em] text-[color:var(--muted-soft)]">
+                  {post.publishedAt}
+                </p>
+                <h2 className="mt-2 text-2xl text-[color:var(--foreground)]">
+                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                </h2>
+                <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">
+                  {post.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }
